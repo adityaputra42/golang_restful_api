@@ -1,114 +1,144 @@
 {
-    "openapi":"3.0.2",
-    "info": {
-      "title":"Category RESTful API",
-      "description": "API Spec for Category RESTful API",
-      "version":"1.0"
-    },
-    "servers": [
-      {"url":"http://localhost:3000/api"}
-    ],
-    "paths": {
-      "/categories":{
-        "get":{
-          "tags": ["Category Api"],
-          "description": "List All categories",
-          "responses": {
-            "200":{
-              "description": "Succes get all categories",
-              "content": {
-                "application/json":{
-                  "schema":{
-                    "type": "object",
-                    "properties": {
-                      "code":{
-                        "type": "number"
-                        },
-                        "status":{
-                          "type": "string"
-                        },
-                        "data":{
-                          "type": "array",
-                         "items":{
-                          "$ref": "#/components/schemas/Category"
-                         },
-                         "maxItems": 100
-                        }
-                      }
-                  }
-
-                }
-              }
-
-            }
-           
-           
-            
-          }
-        },
-        "post":{
-          "requestBody":{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Category RESTful API",
+    "description": "API Spec for Category RESTful API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api"
+    }
+  ],
+  "paths": {
+    "/categories": {
+      "get": {
+        "tags": [
+          "Category API"
+        ],
+        "description": "List All categories",
+        "responses": {
+          "200": {
+            "description": "Succes get all categories",
             "content": {
-              "application/json":{
-                "schema":{
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
-                    "name":{
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
                       "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      },
+                      "maxItems": 100
                     }
                   }
                 }
               }
             }
-          },
-        "responses": {
-          "200":{
-           "description": "Succes create category" ,
-           "content": {
-            "application/json":{
-              "schema":{
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Category API"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
                 "type": "object",
                 "properties": {
-                  "code":{
-                    "type": "number"
+                  "name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Succes create category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
                     },
-                    "status":{
+                    "status": {
                       "type": "string"
                     },
-                    "data":{
+                    "data": {
                       "$ref": "#/components/schemas/Category"
                     }
                   }
+                }
               }
-
             }
           }
-
-        
-          }
-        }
         }
       }
     },
-    "security": [
-        {
-            "securityRequirement": []
-        }
-    ],
-    "components": {
-      "schemas": {
-        "Category":{ 
-          "type": "object",
-          "properties": {
-            "id":{
-              "type": "number"
-            },
-            "name":{
-              "type": "string"
+    "/categories/{categoryId}":{
+      "get":{
+        "tags": ["Category API"],
+        "summary": "Get category by Id",
+        "description": "Get category by Id",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "path",
+            "description": "Category Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Succes get category by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
             }
           }
         }
       }
-
+    }
+  },
+  "components": {
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
     }
   }
+}
