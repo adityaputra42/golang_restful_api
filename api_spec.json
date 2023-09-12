@@ -141,7 +141,8 @@
           {
             "name": "categoryId",
             "in": "path",
-            "description": "Category Id"
+            "description": "Category Id",
+            "required": true
           }
         ], 
         "requestBody": {
@@ -188,7 +189,8 @@
           {
             "name": "categoryId",
             "in": "path",
-            "description": "Category Id"
+            "description": "Category Id",
+            "required": true
           }
         ],
         "responses": {
