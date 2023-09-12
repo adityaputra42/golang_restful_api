@@ -1,4 +1,4 @@
-package reposityory
+package repository
 
 import (
 	"context"
@@ -12,7 +12,7 @@ type CategoryRepositoryImpl struct {
 }
 
 // Delete implements CategoryRepository.
-func (*CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {
+func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {
 	SQL := "delete from category where id = ?"
 	_, err := tx.ExecContext(ctx, SQL, category.Id)
 	helper.PanicIfError(err)
@@ -20,7 +20,7 @@ func (*CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category 
 }
 
 // FindAll implements CategoryRepository.
-func (*CategoryRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) []domain.Category {
+func (repository *CategoryRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) []domain.Category {
 	SQL := "select id, name from category"
 	rows, err := tx.QueryContext(ctx, SQL)
 	helper.PanicIfError(err)
@@ -37,7 +37,7 @@ func (*CategoryRepositoryImpl) FindAll(ctx context.Context, tx *sql.Tx) []domain
 }
 
 // FindById implements CategoryRepository.
-func (*CategoryRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, categoryId int) (domain.Category, error) {
+func (repository *CategoryRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, categoryId int) (domain.Category, error) {
 	SQL := "select id, name from category where id = ?"
 	rows, err := tx.QueryContext(ctx, SQL, categoryId)
 	category := domain.Category{}
@@ -55,7 +55,7 @@ func (*CategoryRepositoryImpl) FindById(ctx context.Context, tx *sql.Tx, categor
 }
 
 // Save implements CategoryRepository.
-func (*CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
+func (repository *CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
 	SQL := "insert into category(name) values(?)"
 	result, err := tx.ExecContext(ctx, SQL, category.Name)
 	helper.PanicIfError(err)
@@ -67,7 +67,7 @@ func (*CategoryRepositoryImpl) Save(ctx context.Context, tx *sql.Tx, category do
 }
 
 // Update implements CategoryRepository.
-func (*CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
+func (repository *CategoryRepositoryImpl) Update(ctx context.Context, tx *sql.Tx, category domain.Category) domain.Category {
 	SQL := "update category set name = ? where id = ?"
 	_, err := tx.ExecContext(ctx, SQL, category.Name, category.Id)
 	helper.PanicIfError(err)
