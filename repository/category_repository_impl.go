@@ -11,6 +11,10 @@ import (
 type CategoryRepositoryImpl struct {
 }
 
+func NewCategoryRepository() CategoryRepository {
+	return &CategoryRepositoryImpl{}
+}
+
 // Delete implements CategoryRepository.
 func (repository *CategoryRepositoryImpl) Delete(ctx context.Context, tx *sql.Tx, category domain.Category) {
 	SQL := "delete from category where id = ?"
