@@ -203,20 +203,20 @@ func TestGetCategoryFailed(t *testing.T) {
 
 	request := httptest.NewRequest(http.MethodGet, "http://localhost:3000/api/categories/404", nil)
 	request.Header.Add("X-API-Key", "RAHASIA")
+
 	recorder := httptest.NewRecorder()
 
 	router.ServeHTTP(recorder, request)
 
-	result := recorder.Result()
-	assert.Equal(t, 404, result.StatusCode)
+	response := recorder.Result()
+	assert.Equal(t, 404, response.StatusCode)
 
-	body, _ := io.ReadAll(result.Body)
+	body, _ := io.ReadAll(response.Body)
 	var responseBody map[string]interface{}
 	json.Unmarshal(body, &responseBody)
 
 	assert.Equal(t, 404, int(responseBody["code"].(float64)))
-	assert.Equal(t, "Not Found", responseBody["status"])
-
+	assert.Equal(t, "NOT FOUND", responseBody["status"])
 }
 func TestDeleteCategorySucces(t *testing.T) {
 	db := SetupTestDB()
