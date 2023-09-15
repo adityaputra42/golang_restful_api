@@ -1,15 +1,24 @@
 package test
 
 import (
-	"fmt"
 	"golang_restful_api/simple"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
-func TestSimpleService(t *testing.T) {
+func TestSimpleServiceError(t *testing.T) {
 
-	simpleService, err := simple.InitializeSimple()
-	fmt.Println(err)
-	fmt.Println(simpleService)
+	simpleService, err := simple.InitializeSimple(true)
+	assert.NotNil(t, err)
+	assert.Nil(t, simpleService)
+
+}
+
+func TestSimpleServiceSucces(t *testing.T) {
+
+	simpleService, err := simple.InitializeSimple(false)
+	assert.NotNil(t, simpleService)
+	assert.Nil(t, err)
 
 }

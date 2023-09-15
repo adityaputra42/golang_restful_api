@@ -9,9 +9,9 @@ type SimpleService struct {
 	*SimpleRepository
 }
 
-func NewSimpleRepository() *SimpleRepository {
+func NewSimpleRepository(isError bool) *SimpleRepository {
 	return &SimpleRepository{
-		Error: true,
+		Error: isError,
 	}
 }
 
