@@ -45,7 +45,7 @@ func initializedHelloService() *HelloService {
 	return helloService
 }
 
-func initializedFooBarStruct() *FooBar {
+func InitializedFooBarStruct() *FooBar {
 	foo := NewFoo()
 	bar := NewBar()
 	fooBar := &FooBar{
@@ -55,7 +55,7 @@ func initializedFooBarStruct() *FooBar {
 	return fooBar
 }
 
-func initializedFooBarUsingValue() *FooBar {
+func InitializedFooBarUsingValue() *FooBar {
 	foo := _wireFooValue
 	bar := _wireBarValue
 	fooBar := &FooBar{
@@ -70,7 +70,7 @@ var (
 	_wireBarValue = &Bar{}
 )
 
-func initializedReader() io.Reader {
+func InitializedReader() io.Reader {
 	reader := _wireFileValue
 	return reader
 }
@@ -78,6 +78,21 @@ func initializedReader() io.Reader {
 var (
 	_wireFileValue = os.Stdin
 )
+
+func InitializedConfiguration() *Configuration {
+	application := NewApplication()
+	configuration := application.Configuration
+	return configuration
+}
+
+func InitializedConnection(name string) (*Connection, func()) {
+	file, cleanup := NewFile(name)
+	connection, cleanup2 := NewConnection(file)
+	return connection, func() {
+		cleanup2()
+		cleanup()
+	}
+}
 
 // injector.go:
 
