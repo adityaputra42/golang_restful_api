@@ -11,7 +11,6 @@ import (
 	"golang_restful_api/service"
 	"net/http"
 
-	"github.com/go-playground/validator/v10"
 	"github.com/google/wire"
 	"github.com/julienschmidt/httprouter"
 )
@@ -28,7 +27,7 @@ var CategorySet = wire.NewSet(
 func InitializedServer() *http.Server {
 	wire.Build(
 		app.NewDB,
-		validator.New,
+		NewValidator,
 		CategorySet,
 		app.NewRouter,
 		wire.Bind(new(http.Handler), new(*httprouter.Router)),

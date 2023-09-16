@@ -1,12 +1,8 @@
 package main
 
 import (
-	"golang_restful_api/app"
-	"golang_restful_api/controller"
 	"golang_restful_api/helper"
 	"golang_restful_api/middleware"
-	"golang_restful_api/repository"
-	"golang_restful_api/service"
 	"net/http"
 
 	"github.com/go-playground/validator/v10"
@@ -19,22 +15,25 @@ func NewServer(authMiddleware *middleware.AuthMiddleware) *http.Server {
 		Handler: authMiddleware,
 	}
 }
+func NewValidator() *validator.Validate {
+	return validator.New()
+}
 func main() {
-	db := app.NewDB()
-	validate := validator.New()
+	// db := app.NewDB()
+	// validate := validator.New()
 
-	categoryRepository := repository.NewCategoryRepository()
-	categoryService := service.NewCategoryService(categoryRepository, db, validate)
-	categoryController := controller.NewCategoryController(categoryService)
-	router := app.NewRouter(categoryController)
-	authMiddlewar := middleware.NewAuthMiddleware(router)
-	server := NewServer(authMiddlewar)
-	err := server.ListenAndServe()
-	helper.PanicIfError(err)
-
-	// menggunakan dependency injection
-	// server := InitializedServer()
+	// categoryRepository := repository.NewCategoryRepository()
+	// categoryService := service.NewCategoryService(categoryRepository, db, validate)
+	// categoryController := controller.NewCategoryController(categoryService)
+	// router := app.NewRouter(categoryController)
+	// authMiddlewar := middleware.NewAuthMiddleware(router)
+	// server := NewServer(authMiddlewar)
 	// err := server.ListenAndServe()
 	// helper.PanicIfError(err)
+
+	// menggunakan dependency injection
+	server := InitializedServer()
+	err := server.ListenAndServe()
+	helper.PanicIfError(err)
 
 }
